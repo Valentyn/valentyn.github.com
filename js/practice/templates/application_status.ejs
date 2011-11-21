@@ -1,0 +1,24 @@
+<div id="application_cache_status">
+	<div id="header">
+		<div class="topic"><%= title %></div>
+	</div>
+	<div class="content">
+		<table>
+			<tr class="title">
+				<% _.each(titleContent, function (item) { %>
+					<td><%= item %></td>
+				<% }); %>
+			</tr>
+			<% _.each(content, function (item) { %>
+				<tr class="description">
+					<td class="property"><%= item[0] %></td> 
+					<td class="status"><%= item[1] %></td>
+					<td class="event"><%= item[2] %></div>
+				</tr>
+			<% }); %>				
+		</table>
+	</div>	
+	<div id="orange_line"></div>
+	<div id="blue_line_bottom"></div>	
+	<div id="footer"></div>		
+</div>

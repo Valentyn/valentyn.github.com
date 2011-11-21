@@ -1,0 +1,13 @@
+<div id="manifest_file_details">
+	<div id="header">
+		<div class="topic"><%= title %></div>
+	</div>
+	<div class="content">
+		<% _.each(content, function (item) { %>
+			<div class="<%= _.keys(item) %>"><%= _.values(item) %></div>
+		<% }); %>
+	</div>
+	<div id="orange_line"></div>
+	<div id="blue_line_bottom"></div>	
+	<div id="footer"></div>		
+</div>
