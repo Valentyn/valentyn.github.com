@@ -1,0 +1,41 @@
+<div id="registration_form">
+	<div>
+		<label>
+			<input id="first_name" type="text" name="first_name" maxlength="100" size="35" value="<%= data.first_name %>">
+			<span><%= context.first_name %></span>
+		</label>
+	</div>
+	<div>
+		<label>
+			<input id="last_name" type="text" name="last_name" maxlength="100" size="35" value="<%= data.last_name %>">
+			<span><%= context.last_name %></span>
+		</label>
+	</div>
+	<div>
+		<label>
+			<input id="login" type="text" name="login" maxlength="100" size="35" value="<%= data.login %>">
+			<span><%= context.login %></span>
+		</label>
+	</div>
+	<div>
+		<label>
+			<input id="email" type="text" name="email" maxlength="100" size="35" value="<%= data.email %>">
+			<span><%= context.email %></span>
+		</label>
+	</div>
+	<div>
+		<label>
+			<input id="password" type="password" name="password" maxlength="100" size="35" value="<%= data.password %>">
+			<span><%= context.password %></span>
+		</label>
+	</div>
+	<div>
+		<label>
+			<input id="re_password" type="password" name="re_password" maxlength="100" size="35" value="<%= data.re_password %>">
+			<span><%= context.re_password %></span>
+		</label>
+	</div>
+	<div id="singin">
+		<div><%= context.button %></div>
+	</div>
+</div>
