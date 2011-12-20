@@ -9,14 +9,15 @@
 		<title>index</title>
 		<script type="text/javascript" src="public/"></script>
 		<script type="text/javascript" src="public/js/jquery-1.5.min.js"></script>
-	    
 	    <script type="text/javascript" src="public/js/underscore-min.js"></script>
 	    <script type="text/javascript" src="public/js/backbone-min.js"></script>
-	    <script type="text/javascript" src="public/js/index.js"></script>
+	    
 	</head>
 	<body>
-		<div id="home">
-			<div id="start" class="block">
+		<div id="home"></div>
+		
+		<script type="text/template" id="start"> 
+			<div class="start">
 			    <div class="userplace">
 			        <label for="username">Имя пользователя: </label>
 			        <input type="text" id="username" />
@@ -25,12 +26,19 @@
 			        <input type="button" value="Проверить" class="button"/>
 			    </div>
 			</div>
-			<div id="error" class="block">
+		</script>
+		
+		<script type="text/template" id="error">
+			<div class="error">
 			    Ошибка такой пользователь не найден.
 			</div>
-			<div id="success" class="block">
+		</script>
+		
+		<script id="success" type="text/template">
+			<div class="success">
 			    Пользователь найден.
 			</div>
-		</div>
+		</script>	
+		<script type="text/javascript" src="public/js/index.js"></script>
 	</body>
 </html>
