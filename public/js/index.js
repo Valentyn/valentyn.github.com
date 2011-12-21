@@ -14,92 +14,83 @@
 	    },	    
 	
 	    start: function () {
-	        if (Views.start != null) {
-	            Views.start.render();
-	        }
+	    	debugger
+	        appState.set({ state : "start"});
 	    },
 	
 	    success: function () {
-	        if (Views.success != null) {
-	            Views.success.render();
-	        }
+	        appState.set({ state : "success"});
 	    },
 	
 	    error: function () {
-	        if (Views.error != null) {
-	            Views.error.render();
-	        }
+	        appState.set({ state : "error"});
 	    }
 	});
 })();
 
 (function () {
-	Start = Backbone.View.extend ({
+	Block = Backbone.View.extend ({
 		el: $('#home'),
 		
-		template: _.template($('#start').html()),
+		initialize: function  () {
+			this.model.bind("change", $.proxy( this.render, this));
+		},
+		
+		templates: {
+			"start" : _.template($('#start').html()),
+			"error" : _.template($('#error').html()),
+			"success" : _.template($('#success').html()),
+		},
 		
 		events : {
 			"click input:button": "_onButtonClick"
 		},
 		
 		_onButtonClick : function () {
-	    	AppState.username = this.el.find("input:text").val(); // Сохранение имени пользователя
-	        if (_.detect(Family, function (elem) { return elem == AppState.username; })) // Проверка имени пользователя
-	            controller.navigate("success", true); // переход на страницу success
-	        else
-	            controller.navigate("error", true); // переход на страницу error	
+	    	var username = this.el.find("input:text").val(); // Get user's age
+	    	var find = (_.detect(Family, function (elem) { return elem == username; }))
+			appState.set({
+				"state": find ? "success" : "error",
+				"username": username
+			});	
 	   },
 	   
 	   render: function () {
-			$(this.el).html(this.template({}));
+	   		var state = this.model.get("state");
+	   		$(this.el).html(this.templates[state](this.model.toJSON()));
+	   		return this;
 	   }
 	   
 	});
 })();
 
-(function () {
-	Success = Backbone.View.extend ({
-	
-		el: $('#home'),
-			
-		template: _.template($('#success').html()),
-		
-		render: function () {
-		  	$(this.el).html(this.template({}));
-		}
-	});
-})();
-
-(function () {
-	Error = Backbone.View.extend({
-		
-		el: $('#home'),
-		
-		template: _.template($('#error').html()),
-		
-		render: function () {
-		  	$(this.el.html(this.template({})))
-		}
-	});
-})();
-
 $(document).ready(function () {
+    debugger
+    Family = ["Валик", "Андрей", "Ника", "18", "19", "20"];
 	
-	Views = { 
-        start: new Start(),
-        success: new Success(),
-        error: new Error()
-    };
-    
-    Family = ["Валик", "Андрей", "Ника"];
+	AppState = Backbone.Model.extend({
+		defaults: {
+			username: "",
+			state: ""
+		}	    
+	}); 
 	
-	AppState = {
-	    username: ""
-	};
-
+	appState = new AppState();
+	
+	
+	block = new Block({model: appState});
 	controller = new Controller(); // Создаём контроллер
-	Backbone.history.start();  // Запускаем HTML5 History push 
+	
+	appState.bind("change:state", function () {
+		var state = this.get("state");
+		if (state == "start") {
+			controller.navigate("", true);
+		} else {
+			controller.navigate(state, true);
+		}
+	});
+	
+	Backbone.history.start();  
 });
 
 
