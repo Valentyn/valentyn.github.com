@@ -14,7 +14,6 @@
 	    },	    
 	
 	    start: function () {
-	    	debugger
 	        appState.set({ state : "start"});
 	    },
 	
@@ -65,21 +64,20 @@
 })();
 
 $(document).ready(function () {
-    debugger
     Family = ["Валик", "Андрей", "Ника", "18", "19", "20"];
 	
 	AppState = Backbone.Model.extend({
 		defaults: {
-			username: "",
-			state: ""
+			name: "",
+			state: "Start"
 		}	    
-	}); 
+	});
 	
 	appState = new AppState();
 	
 	
 	block = new Block({model: appState});
-	controller = new Controller(); // Создаём контроллер
+	controller = new Controller();
 	
 	appState.bind("change:state", function () {
 		var state = this.get("state");
