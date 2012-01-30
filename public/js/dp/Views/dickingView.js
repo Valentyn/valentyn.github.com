@@ -2,6 +2,8 @@
  * @author Valik
  */
 
+var URL = "public/js/dp/Templates/",
+	EJS = ".ejs";
 
 (function () {
 	View = Backbone.View.extend ({
@@ -33,9 +35,24 @@
 	   		return this._age > 18;
 	   },
 	   
+	   getTemplate : function (url) {
+			var ejs = '';
+			$.ajaxSetup({
+				async : false
+			});
+			$.ajax({
+				url : url,
+				success : function (result) {
+					ejs = result;
+				}
+			});
+			return ejs;
+	   },
+	   
 	   render: function () {
 	   		var state = this.model.get("state");
-	   		$(this.el).html(this.templates[state](this.model.toJSON()));
+	   		var template = _.template(this.getTemplate(URL + state + EJS));
+	   		$(this.el).append(template);
 	   		return this;
 	   }
 	   
